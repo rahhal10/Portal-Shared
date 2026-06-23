@@ -1,0 +1,72 @@
+import styles from './FormField.module.css'
+
+/**
+ * Reusable text/email/password input field
+ *
+ * Props:
+ *  - id, name, label, type, value, onChange
+ *  - placeholder, required, disabled, readOnly
+ *  - error (string), hint (string)
+ *  - autoFilled (bool) — shows "auto-filled" badge
+ */
+export default function FormField({
+  id,
+  name,
+  label,
+  type = 'text',
+  value = '',
+  onChange,
+  placeholder = '',
+  required = false,
+  disabled = false,
+  readOnly = false,
+  error,
+  hint,
+  autoFilled = false,
+}) {
+  const isLocked = disabled || readOnly || autoFilled
+
+  return (
+    <div className={styles.group}>
+      <div className={styles.labelRow}>
+        <label htmlFor={id} className={styles.label}>
+          {label}
+          {required && <span className={styles.required}>*</span>}
+        </label>
+        {autoFilled && (
+          <span className={styles.autoBadge}>Auto-filled</span>
+        )}
+      </div>
+
+      <input
+        id={id}
+        name={name ?? id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required={required}
+        disabled={disabled}
+        readOnly={readOnly || autoFilled}
+        className={[
+          styles.input,
+          error   ? styles.inputError  : '',
+          isLocked ? styles.inputLocked : '',
+        ].join(' ')}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-err` : hint ? `${id}-hint` : undefined}
+      />
+
+      {error && (
+        <span id={`${id}-err`} className={styles.errorText} role="alert">
+          {error}
+        </span>
+      )}
+      {!error && hint && (
+        <span id={`${id}-hint`} className={styles.hint}>
+          {hint}
+        </span>
+      )}
+    </div>
+  )
+}

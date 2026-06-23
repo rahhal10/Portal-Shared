@@ -1,0 +1,139 @@
+.topbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.logo {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  border-left: 2px solid var(--green-200);
+  padding-left: 0.85rem;
+}
+
+.brandName {
+  color: var(--green-700);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.brandSub {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userChip {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--green-50);
+  border: 1px solid var(--green-200);
+  border-radius: 99px;
+  padding: 0.35rem 0.85rem 0.35rem 0.45rem;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-400), var(--green-600));
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.userName {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-700);
+  line-height: 1.2;
+}
+
+.userRole {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.42rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+}
+
+.logoutBtn:hover {
+  background: var(--red-100);
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding: 0.65rem 1rem;
+  }
+
+  .brandText {
+    display: none;
+  }
+
+  .userChip {
+    padding: 0.35rem;
+  }
+
+  .userInfo {
+    display: none;
+  }
+}

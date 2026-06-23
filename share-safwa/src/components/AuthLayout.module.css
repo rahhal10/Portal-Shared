@@ -1,0 +1,168 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ── Left decorative panel ── */
+.panel {
+  width: 420px;
+  flex-shrink: 0;
+  background: linear-gradient(160deg, var(--green-500) 0%, var(--green-700) 55%, var(--green-900) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.panelInner {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.panelLogo {
+  height: 70px;
+  width: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+}
+
+.panelHeading {
+  color: rgba(255,255,255,0.95);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  direction: rtl;
+}
+
+.panelTagline {
+  color: rgba(255,255,255,0.72);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  max-width: 300px;
+}
+
+.panelDots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.panelDots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+}
+
+.panelDots span:first-child {
+  background: rgba(255,255,255,0.9);
+}
+
+/* Decorative geometric pattern overlay */
+.panelPattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.04) 0%, transparent 50%);
+  background-size: cover;
+  z-index: 1;
+}
+
+.panelPattern::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 400px;
+  height: 400px;
+  border: 60px solid rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+.panelPattern::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 280px;
+  height: 280px;
+  border: 40px solid rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+/* ── Right form area ── */
+.formArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: var(--bg-page);
+}
+
+.formCard {
+  width: 100%;
+  max-width: 460px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.25rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+.logoMobile {
+  display: none;
+  margin-bottom: 1.25rem;
+}
+
+.logoMobile img {
+  height: 36px;
+  width: auto;
+}
+
+.title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .panel {
+    display: none;
+  }
+
+  .logoMobile {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .formCard {
+    border-radius: var(--radius-md);
+    padding: 1.75rem 1.25rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+}

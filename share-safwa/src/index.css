@@ -1,0 +1,101 @@
+/* ===========================
+   SAFWA PORTAL — GLOBAL STYLES
+   =========================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Brand greens — extracted from Safwa logo */
+  --green-50:  #f0faf2;
+  --green-100: #d6f0db;
+  --green-200: #aaddb4;
+  --green-300: #73c480;
+  --green-400: #3f9250;   /* primary action */
+  --green-500: #2e7a3d;
+  --green-600: #22602f;
+  --green-700: #1a4a24;
+  --green-800: #133519;
+  --green-900: #0c2210;
+
+  /* Neutrals */
+  --gray-50:  #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Semantic */
+  --brand:        var(--green-400);
+  --brand-dark:   var(--green-500);
+  --brand-darker: var(--green-600);
+  --bg-page:      #f1f5f2;
+  --bg-card:      #ffffff;
+  --border:       #d9e5db;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted:   #9ca3af;
+  --red-500: #ef4444;
+  --red-100: #fee2e2;
+
+  /* Typography */
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(31,49,38,0.10), 0 1px 4px rgba(31,49,38,0.06);
+  --shadow-lg: 0 20px 48px rgba(31,49,38,0.14), 0 4px 12px rgba(31,49,38,0.08);
+  --shadow-green: 0 0 0 3px rgba(63,146,80,0.18);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--brand-dark);
+  text-decoration: underline;
+}
+
+input, select, textarea, button {
+  font-family: var(--font);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--green-200); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green-300); }
