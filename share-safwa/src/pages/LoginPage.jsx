@@ -4,22 +4,11 @@ import FormField  from '../components/FormField'
 import Button     from '../components/Button'
 import styles     from './LoginPage.module.css'
 
-// Demo credentials — frontend only, no backend
-const DEMO_USERS = [
-  {
-    employeeId: 'EMP001',
-    password:   'safwa2024',
-    fullName:   'Ahmed Al-Rashidi',
-    branchNumber: '001',
-    employeeNumber: 'SIB-EMP-0001',
-  },
-  {
-    employeeId: 'EMP002',
-    password:   'safwa2024',
-    fullName:   'Sara Al-Mutairi',
-    branchNumber: '002',
-    employeeNumber: 'SIB-EMP-0002',
-  },
+// Demo auth check — replace with a real API call when the backend is ready
+const VALID_CREDENTIALS = [
+  { employeeId: 'EMP001', password: 'safwa2024' },
+  { employeeId: 'EMP002', password: 'safwa2024' },
+  { employeeId: 'EMP003', password: 'safwa2024' },
 ]
 
 export default function LoginPage({ onLogin }) {
@@ -45,15 +34,13 @@ export default function LoginPage({ onLogin }) {
     setErrors({})
     setLoading(true)
 
-    // Simulate async check
+    // Simulate async credential check
     setTimeout(() => {
-      const user = DEMO_USERS.find(
-        (u) =>
-          u.employeeId === form.employeeId.trim() &&
-          u.password === form.password
+      const valid = VALID_CREDENTIALS.find(
+        (c) => c.employeeId === form.employeeId.trim() && c.password === form.password
       )
-      if (user) {
-        onLogin(user)
+      if (valid) {
+        onLogin()   // no user data here — profile is fetched on the next step
       } else {
         setErrors({ general: 'Invalid Employee ID or password. Please try again.' })
       }
@@ -146,6 +133,8 @@ export default function LoginPage({ onLogin }) {
 
       <div className={styles.demoHint}>
         <strong>Demo credentials:</strong> EMP001 / safwa2024
+        <br />
+        <span style={{ opacity: 0.8 }}>Then look up: SIB-EMP-0001</span>
       </div>
     </AuthLayout>
   )

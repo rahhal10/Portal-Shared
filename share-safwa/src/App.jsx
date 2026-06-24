@@ -1,17 +1,24 @@
 import { useState } from 'react'
-import LoginPage       from './pages/LoginPage'
-import DashboardPage   from './pages/DashboardPage'
-import AccountFormPage from './pages/AccountFormPage'
+import LoginPage          from './pages/LoginPage'
+import EmployeeLookupPage from './pages/EmployeeLookupPage'
+import DashboardPage      from './pages/DashboardPage'
+import AccountFormPage    from './pages/AccountFormPage'
 
-// Pages: 'login' | 'dashboard' | 'form'
+// Pages: 'login' | 'lookup' | 'dashboard' | 'form'
 
 function App() {
   const [page, setPage] = useState('login')
   const [user, setUser] = useState(null)
 
-  const handleLogin = (userData) => {
-    setUser(userData)
-    setPage('dashboard')       // ← goes to dashboard first
+  // Step 1: Login authenticates the session (credentials only)
+  const handleLogin = () => {
+    setPage('lookup')
+  }
+
+  // Step 2: Employee lookup fills in profile data
+  const handleLookupConfirm = (employeeData) => {
+    setUser(employeeData)   // { employeeNumber, fullName, branchNumber }
+    setPage('dashboard')
   }
 
   const handleLogout = () => {
@@ -20,19 +27,15 @@ function App() {
   }
 
   const handleSelectModule = (moduleId) => {
-    if (moduleId === 'accounts') {
-      setPage('form')
-    }
-    // other modules → no-op for now (coming soon)
+    if (moduleId === 'accounts') setPage('form')
   }
-
-  const goToLogin  = () => setPage('login')
 
   return (
     <>
-      {page === 'login'     && <LoginPage     onLogin={handleLogin} />}
-      {page === 'dashboard' && <DashboardPage  user={user} onLogout={handleLogout} onSelectModule={handleSelectModule} />}
-      {page === 'form'      && <AccountFormPage user={user} onLogout={handleLogout} onBack={() => setPage('dashboard')} />}
+      {page === 'login'     && <LoginPage          onLogin={handleLogin} />}
+      {page === 'lookup'    && <EmployeeLookupPage  onConfirm={handleLookupConfirm} />}
+      {page === 'dashboard' && <DashboardPage       user={user} onLogout={handleLogout} onSelectModule={handleSelectModule} />}
+      {page === 'form'      && <AccountFormPage     user={user} onLogout={handleLogout} onBack={() => setPage('dashboard')} />}
     </>
   )
 }

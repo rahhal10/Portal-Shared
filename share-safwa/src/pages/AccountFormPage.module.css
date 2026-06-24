@@ -141,11 +141,139 @@
   gap: 1rem;
 }
 
-.grid2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+/* ── Account lookup row ── */
+.lookupRow {
+  margin-bottom: 0;
+}
+
+.lookupFieldWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  max-width: 100%;
+}
+
+.lookupLabel {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.required {
+  color: var(--red-500);
+}
+
+.lookupInputRow {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.lookupInput {
+  flex: 1;
+  max-width: 320px;
+  padding: 0.72rem 0.95rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: #fff;
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+
+.lookupInput::placeholder {
+  color: var(--text-muted);
+}
+
+.lookupInput:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: var(--shadow-green);
+}
+
+.lookupInputError {
+  border-color: var(--red-500) !important;
+  background: #fff5f5;
+}
+
+.lookupInputLocked {
+  background: var(--green-50);
+  border-color: var(--green-300);
+  color: var(--green-700);
+  font-weight: 600;
+  cursor: default;
+}
+
+.lookupInputLocked:focus {
+  box-shadow: none;
+  border-color: var(--green-300);
+}
+
+.lookupError {
+  font-size: 0.78rem;
+  color: var(--red-500);
+  font-weight: 500;
+  margin: 0;
+}
+
+.lookupHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.clearBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+  white-space: nowrap;
+}
+
+.clearBtn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* Retrieved fields panel */
+.retrievedFields {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
+  animation: fadeUp 0.28s var(--ease);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.retrievedBanner {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-600);
+  background: var(--green-50);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.85rem;
 }
 
 /* Textarea */
@@ -194,6 +322,13 @@
   padding: 1.5rem 2rem;
   background: var(--gray-50);
   border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.submitHint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 /* ── Success state ── */
