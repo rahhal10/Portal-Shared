@@ -1,9 +1,57 @@
 .root {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
 }
 
-/* ── Left decorative panel ── */
+/* ── Slim top nav with the language toggle ── */
+.topNav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255,255,255,0.85);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* In RTL, push the toggle to the left (logical start) */
+:global([dir="rtl"]) .topNav {
+  justify-content: flex-start;
+}
+
+.langBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--green-200);
+  color: var(--green-600);
+  padding: 0.38rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+  white-space: nowrap;
+  font-family: var(--font);
+}
+
+.langBtn:hover {
+  background: var(--green-50);
+  border-color: var(--green-400);
+}
+
+/* ── Split body ── */
+.body {
+  flex: 1;
+  display: flex;
+}
+
+/* ── Left / right decorative panel ── */
 .panel {
   width: 420px;
   flex-shrink: 0;
@@ -39,6 +87,7 @@
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  font-family: 'Cairo', sans-serif;
   direction: rtl;
 }
 
@@ -99,7 +148,7 @@
   border-radius: 50%;
 }
 
-/* ── Right form area ── */
+/* ── Form area ── */
 .formArea {
   flex: 1;
   display: flex;

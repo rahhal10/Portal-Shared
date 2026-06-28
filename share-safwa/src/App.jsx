@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { LanguageProvider } from './i18n/LanguageContext'
 import LoginPage          from './pages/LoginPage'
 import EmployeeLookupPage from './pages/EmployeeLookupPage'
 import DashboardPage      from './pages/DashboardPage'
@@ -31,12 +32,12 @@ function App() {
   }
 
   return (
-    <>
+    <LanguageProvider>
       {page === 'login'     && <LoginPage          onLogin={handleLogin} />}
       {page === 'lookup'    && <EmployeeLookupPage  onConfirm={handleLookupConfirm} />}
       {page === 'dashboard' && <DashboardPage       user={user} onLogout={handleLogout} onSelectModule={handleSelectModule} />}
       {page === 'form'      && <AccountFormPage     user={user} onLogout={handleLogout} onBack={() => setPage('dashboard')} />}
-    </>
+    </LanguageProvider>
   )
 }
 

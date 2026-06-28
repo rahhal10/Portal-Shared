@@ -2,50 +2,33 @@ import { useState } from 'react'
 import Topbar    from '../components/Topbar'
 import FormField from '../components/FormField'
 import Button    from '../components/Button'
+import { useLanguage } from '../i18n/useLanguage'
 import styles    from './AccountFormPage.module.css'
 
 /* ─────────────────────────────────────────────────────────
-   Mock account directory
-   Key: account number (string)
-   Replace the lookup block with a real fetch() when ready.
+   Mock account directory — accountTypeKey maps to a
+   translation key so the label is language-aware.
+   Replace the lookup with a real fetch() when ready.
 ───────────────────────────────────────────────────────── */
 const ACCOUNT_DIRECTORY = {
-  '1000001': {
-    customerName: 'Mohammed Al-Ahmad',
-    accountType:  '3005 — Savings Account',
-    openingDate:  '01/03/2024',
-  },
-  '1000002': {
-    customerName: 'Fatima Al-Zahrani',
-    accountType:  '3092 — Current Account',
-    openingDate:  '15/06/2023',
-  },
-  '1000003': {
-    customerName: 'Abdullah Al-Shehri',
-    accountType:  '3005 — Savings Account',
-    openingDate:  '22/11/2022',
-  },
-  '1000004': {
-    customerName: 'Hessa Al-Dosari',
-    accountType:  '3092 — Current Account',
-    openingDate:  '07/01/2025',
-  },
-  '1000005': {
-    customerName: 'Turki Al-Malki',
-    accountType:  '3005 — Savings Account',
-    openingDate:  '30/08/2023',
-  },
+  '1000001': { customerName: 'Mohammed Al-Ahmad',   accountTypeKey: 'accType.3005', openingDate: '01/03/2024' },
+  '1000002': { customerName: 'Fatima Al-Zahrani',   accountTypeKey: 'accType.3092', openingDate: '15/06/2023' },
+  '1000003': { customerName: 'Abdullah Al-Shehri',  accountTypeKey: 'accType.3005', openingDate: '22/11/2022' },
+  '1000004': { customerName: 'Hessa Al-Dosari',     accountTypeKey: 'accType.3092', openingDate: '07/01/2025' },
+  '1000005': { customerName: 'Turki Al-Malki',      accountTypeKey: 'accType.3005', openingDate: '30/08/2023' },
 }
 
 export default function AccountFormPage({ user, onLogout, onBack }) {
+  const { t } = useLanguage()
+
   /* ── Account lookup state ── */
   const [accountNumber, setAccountNumber] = useState('')
-  const [accountData, setAccountData]     = useState(null)   // result from lookup
+  const [accountData, setAccountData]     = useState(null)
   const [lookupLoading, setLookupLoading] = useState(false)
   const [lookupError, setLookupError]     = useState('')
   const [accountLocked, setAccountLocked] = useState(false)
 
-  /* ── Notes (only manual field left) ── */
+  /* ── Notes ── */
   const [notes, setNotes] = useState('')
 
   /* ── Submit state ── */
@@ -63,7 +46,7 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
   const handleLookup = (e) => {
     e.preventDefault()
     const key = accountNumber.trim()
-    if (!key) { setLookupError('Please enter an account number.'); return }
+    if (!key) { setLookupError(t('form.accNumberRequired')); return }
 
     setLookupError('')
     setAccountData(null)
@@ -75,13 +58,12 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
         setAccountData(found)
         setAccountLocked(true)
       } else {
-        setLookupError('No account found for this number. Please check and try again.')
+        setLookupError(t('form.accNotFound'))
       }
       setLookupLoading(false)
     }, 800)
   }
 
-  /* ── Clear lookup to try a different account ── */
   const handleClearLookup = () => {
     setAccountNumber('')
     setAccountData(null)
@@ -100,7 +82,6 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
     }, 1000)
   }
 
-  /* ── Reset everything ── */
   const handleReset = () => {
     setAccountNumber('')
     setAccountData(null)
@@ -119,69 +100,63 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
         <div className={styles.pageHeader}>
           <div>
             <p className={styles.breadcrumb}>
-              <button type="button" className={styles.breadcrumbBack} onClick={onBack}>Portal</button>
+              <button type="button" className={styles.breadcrumbBack} onClick={onBack}>
+                {t('form.breadPortal')}
+              </button>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-              <span>Account Operations</span>
+              <span>{t('form.breadOps')}</span>
             </p>
-            <h1 className={styles.pageTitle}>Account Opening Form</h1>
-            <p className={styles.pageDesc}>
-              Enter the account number to retrieve customer details, then complete the form.
-            </p>
+            <h1 className={styles.pageTitle}>{t('form.title')}</h1>
+            <p className={styles.pageDesc}>{t('form.desc')}</p>
           </div>
           {submitted && (
             <div className={styles.successBadge}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Submitted
+              {t('form.submittedBadge')}
             </div>
           )}
         </div>
 
         {submitted ? (
-          /* ════════════════════════════════════
-             SUCCESS STATE
-          ════════════════════════════════════ */
+          /* ════ SUCCESS ════ */
           <div className={styles.successPanel}>
             <div className={styles.successIcon}>
               <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <h2 className={styles.successTitle}>Form submitted successfully</h2>
-            <p className={styles.successBody}>
-              The account opening request has been recorded and sent for processing.
-            </p>
+            <h2 className={styles.successTitle}>{t('form.successTitle')}</h2>
+            <p className={styles.successBody}>{t('form.successBody')}</p>
 
             <div className={styles.summaryCard}>
-              <h3 className={styles.summaryTitle}>Submission summary</h3>
+              <h3 className={styles.summaryTitle}>{t('form.summaryTitle')}</h3>
               <div className={styles.summaryGrid}>
-                <SummaryRow label="Branch"          value={emp.branchNumber} />
-                <SummaryRow label="Employee Name"   value={emp.fullName} />
-                <SummaryRow label="Employee No."    value={emp.employeeNumber} />
-                <SummaryRow label="Account No."     value={accountNumber} />
-                <SummaryRow label="Customer Name"   value={accountData?.customerName} />
-                <SummaryRow label="Account Type"    value={accountData?.accountType} />
-                <SummaryRow label="Opening Date"    value={accountData?.openingDate} />
-                {notes && <SummaryRow label="Notes" value={notes} wide />}
+                <SummaryRow label={t('form.sumBranch')}   value={emp.branchNumber} />
+                <SummaryRow label={t('form.sumEmpName')}  value={emp.fullName} />
+                <SummaryRow label={t('form.sumEmpNo')}    value={emp.employeeNumber} />
+                <SummaryRow label={t('form.sumAccNo')}    value={accountNumber} />
+                <SummaryRow label={t('form.sumCustomer')} value={accountData?.customerName} />
+                <SummaryRow label={t('form.sumAccType')}  value={t(accountData?.accountTypeKey)} />
+                <SummaryRow label={t('form.sumDate')}     value={accountData?.openingDate} />
+                {notes && <SummaryRow label={t('form.sumNotes')} value={notes} wide />}
               </div>
             </div>
 
             <div className={styles.successActions}>
               <Button id="new-form-btn" variant="primary" size="lg" onClick={handleReset}>
-                Submit another form
+                {t('form.newForm')}
               </Button>
               <Button id="back-dashboard-btn" variant="ghost" size="lg" onClick={onBack}>
-                Back to portal
+                {t('form.backPortal')}
               </Button>
             </div>
           </div>
 
         ) : (
-          /* ════════════════════════════════════
-             FORM
-          ════════════════════════════════════ */
+          /* ════ FORM ════ */
           <form id="account-form" onSubmit={handleSubmit} noValidate className={styles.formCard}>
 
-            {/* ── Section 1: Employee Information (auto-filled) ── */}
+            {/* ── Section 1: Employee Information ── */}
             <section className={styles.section}>
               <div className={styles.sectionHeader}>
                 <div className={styles.sectionIcon}>
@@ -190,15 +165,15 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                   </svg>
                 </div>
                 <div>
-                  <h2 className={styles.sectionTitle}>Employee Information</h2>
-                  <p className={styles.sectionSub}>Auto-filled from your verified profile</p>
+                  <h2 className={styles.sectionTitle}>{t('form.empSection')}</h2>
+                  <p className={styles.sectionSub}>{t('form.empSectionSub')}</p>
                 </div>
               </div>
 
               <div className={styles.grid3}>
-                <FormField id="branchNumber"   label="Branch Number"       value={emp.branchNumber}   autoFilled />
-                <FormField id="userFullName"   label="Employee Full Name"  value={emp.fullName}       autoFilled />
-                <FormField id="employeeNumber" label="Employee Number"     value={emp.employeeNumber} autoFilled />
+                <FormField id="branchNumber"   label={t('form.branchNumber')} value={emp.branchNumber}   autoFilled hint={t('form.branchHint')} />
+                <FormField id="userFullName"   label={t('form.empFullName')}  value={emp.fullName}       autoFilled />
+                <FormField id="employeeNumber" label={t('form.empNumber')}    value={emp.employeeNumber} autoFilled />
               </div>
             </section>
 
@@ -213,20 +188,18 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                   </svg>
                 </div>
                 <div>
-                  <h2 className={styles.sectionTitle}>Account Details</h2>
+                  <h2 className={styles.sectionTitle}>{t('form.accSection')}</h2>
                   <p className={styles.sectionSub}>
-                    {accountData
-                      ? 'Customer details retrieved from the system'
-                      : 'Enter the account number to retrieve customer details'}
+                    {accountData ? t('form.accSectionSubDone') : t('form.accSectionSubIdle')}
                   </p>
                 </div>
               </div>
 
-              {/* ── Account number + search ── */}
+              {/* Account number + search */}
               <div className={styles.lookupRow}>
                 <div className={styles.lookupFieldWrap}>
                   <label htmlFor="accountNumber" className={styles.lookupLabel}>
-                    Account Number <span className={styles.required}>*</span>
+                    {t('form.accNumber')} <span className={styles.required}>*</span>
                   </label>
                   <div className={styles.lookupInputRow}>
                     <input
@@ -240,7 +213,7 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                         if (accountLocked) handleClearLookup()
                       }}
                       readOnly={accountLocked}
-                      placeholder="e.g. 1000001"
+                      placeholder={t('form.accNumberPh')}
                       className={[
                         styles.lookupInput,
                         lookupError   ? styles.lookupInputError  : '',
@@ -253,10 +226,9 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                         type="button"
                         className={styles.clearBtn}
                         onClick={handleClearLookup}
-                        title="Search a different account"
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                        Change
+                        {t('form.change')}
                       </button>
                     ) : (
                       <Button
@@ -267,7 +239,7 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                         loading={lookupLoading}
                         onClick={handleLookup}
                       >
-                        {lookupLoading ? 'Searching…' : 'Search'}
+                        {lookupLoading ? t('form.searching') : t('form.search')}
                       </Button>
                     )}
                   </div>
@@ -275,42 +247,22 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                     <p className={styles.lookupError} role="alert">{lookupError}</p>
                   )}
                   {!accountLocked && !lookupError && (
-                    <p className={styles.lookupHint}>
-                      Demo accounts: 1000001 · 1000002 · 1000003 · 1000004 · 1000005
-                    </p>
+                    <p className={styles.lookupHint}>{t('form.demoAccounts')}</p>
                   )}
                 </div>
               </div>
 
-              {/* ── Retrieved account fields (shown after lookup) ── */}
+              {/* Retrieved account fields */}
               {accountData && (
                 <div className={styles.retrievedFields}>
                   <div className={styles.retrievedBanner}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    Account found — details auto-filled below
+                    {t('form.accFound')}
                   </div>
                   <div className={styles.grid3}>
-                    <FormField
-                      id="customerName"
-                      label="Customer Full Name"
-                      value={accountData.customerName}
-                      autoFilled
-                      hint="From account record"
-                    />
-                    <FormField
-                      id="accountType"
-                      label="Account Type / Ledger"
-                      value={accountData.accountType}
-                      autoFilled
-                      hint="From account record"
-                    />
-                    <FormField
-                      id="openingDate"
-                      label="Account Opening Date"
-                      value={accountData.openingDate}
-                      autoFilled
-                      hint="From account record"
-                    />
+                    <FormField id="customerName" label={t('form.customerName')} value={accountData.customerName}          autoFilled hint={t('form.customerHint')} />
+                    <FormField id="accountType"  label={t('form.accType')}      value={t(accountData.accountTypeKey)}     autoFilled hint={t('form.accTypeHint')} />
+                    <FormField id="openingDate"  label={t('form.openingDate')}  value={accountData.openingDate}           autoFilled hint={t('form.openingDateHint')} />
                   </div>
                 </div>
               )}
@@ -327,8 +279,8 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                   </svg>
                 </div>
                 <div>
-                  <h2 className={styles.sectionTitle}>Notes</h2>
-                  <p className={styles.sectionSub}>Optional — add any remarks or special instructions</p>
+                  <h2 className={styles.sectionTitle}>{t('form.notesSection')}</h2>
+                  <p className={styles.sectionSub}>{t('form.notesSectionSub')}</p>
                 </div>
               </div>
 
@@ -338,12 +290,12 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                   name="notes"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Enter any additional notes or instructions here…"
+                  placeholder={t('form.notesPh')}
                   className={styles.textarea}
                   rows={4}
-                  aria-label="Notes and remarks"
+                  aria-label={t('form.notesSection')}
                 />
-                <span className={styles.charCount}>{notes.length} characters</span>
+                <span className={styles.charCount}>{notes.length} {t('form.characters')}</span>
               </div>
             </section>
 
@@ -357,7 +309,7 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                 disabled={!accountData}
                 loading={submitLoading}
               >
-                {submitLoading ? 'Submitting…' : 'Submit form'}
+                {submitLoading ? t('form.submitting') : t('form.submit')}
               </Button>
               <Button
                 id="account-form-clear"
@@ -366,10 +318,10 @@ export default function AccountFormPage({ user, onLogout, onBack }) {
                 size="lg"
                 onClick={handleReset}
               >
-                Clear form
+                {t('form.clear')}
               </Button>
               {!accountData && (
-                <span className={styles.submitHint}>Search for an account first to enable submission</span>
+                <span className={styles.submitHint}>{t('form.submitHint')}</span>
               )}
             </div>
           </form>

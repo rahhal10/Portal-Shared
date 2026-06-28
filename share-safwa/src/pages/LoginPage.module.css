@@ -29,8 +29,9 @@
 
 .showPwBtn {
   position: absolute;
+  top: 50%;
   right: 0.85rem;
-  bottom: 0.75rem;
+  transform: translateY(calc(-50% + 12px)); /* offset for label height */
   background: none;
   border: none;
   cursor: pointer;
@@ -39,16 +40,28 @@
   display: flex;
   align-items: center;
   transition: color 0.15s;
+  z-index: 1;
 }
 
 .showPwBtn:hover {
   color: var(--green-500);
 }
 
+/* RTL: flip the eye icon to the left side */
+:global([dir="rtl"]) .showPwBtn {
+  right: auto;
+  left: 0.85rem;
+}
+
 .forgot {
   display: flex;
   justify-content: flex-end;
   margin-top: -0.3rem;
+}
+
+/* RTL: flip "Forgot password" to the left */
+:global([dir="rtl"]) .forgot {
+  justify-content: flex-start;
 }
 
 .forgotLink {

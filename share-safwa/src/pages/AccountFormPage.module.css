@@ -36,6 +36,11 @@
   opacity: 0.6;
 }
 
+/* In RTL the chevron points the other way */
+:global([dir="rtl"]) .breadcrumb svg {
+  transform: scaleX(-1);
+}
+
 .breadcrumbBack {
   background: none;
   border: none;

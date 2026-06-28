@@ -1,29 +1,12 @@
+import { useLanguage } from '../i18n/useLanguage'
 import styles from './FormField.module.css'
 
-/**
- * Reusable text/email/password input field
- *
- * Props:
- *  - id, name, label, type, value, onChange
- *  - placeholder, required, disabled, readOnly
- *  - error (string), hint (string)
- *  - autoFilled (bool) — shows "auto-filled" badge
- */
 export default function FormField({
-  id,
-  name,
-  label,
-  type = 'text',
-  value = '',
-  onChange,
-  placeholder = '',
-  required = false,
-  disabled = false,
-  readOnly = false,
-  error,
-  hint,
-  autoFilled = false,
+  id, name, label, type = 'text', value = '', onChange,
+  placeholder = '', required = false, disabled = false,
+  readOnly = false, error, hint, autoFilled = false,
 }) {
+  const { t } = useLanguage()
   const isLocked = disabled || readOnly || autoFilled
 
   return (
@@ -34,7 +17,7 @@ export default function FormField({
           {required && <span className={styles.required}>*</span>}
         </label>
         {autoFilled && (
-          <span className={styles.autoBadge}>Auto-filled</span>
+          <span className={styles.autoBadge}>{t('common.autoFilled')}</span>
         )}
       </div>
 
@@ -50,7 +33,7 @@ export default function FormField({
         readOnly={readOnly || autoFilled}
         className={[
           styles.input,
-          error   ? styles.inputError  : '',
+          error    ? styles.inputError  : '',
           isLocked ? styles.inputLocked : '',
         ].join(' ')}
         aria-invalid={!!error}
@@ -58,14 +41,10 @@ export default function FormField({
       />
 
       {error && (
-        <span id={`${id}-err`} className={styles.errorText} role="alert">
-          {error}
-        </span>
+        <span id={`${id}-err`} className={styles.errorText} role="alert">{error}</span>
       )}
       {!error && hint && (
-        <span id={`${id}-hint`} className={styles.hint}>
-          {hint}
-        </span>
+        <span id={`${id}-hint`} className={styles.hint}>{hint}</span>
       )}
     </div>
   )

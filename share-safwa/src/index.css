@@ -34,25 +34,25 @@
   --gray-900: #111827;
 
   /* Semantic */
-  --brand:        var(--green-400);
-  --brand-dark:   var(--green-500);
-  --brand-darker: var(--green-600);
-  --bg-page:      #f1f5f2;
-  --bg-card:      #ffffff;
-  --border:       #d9e5db;
-  --text-primary: #111827;
+  --brand:          var(--green-400);
+  --brand-dark:     var(--green-500);
+  --brand-darker:   var(--green-600);
+  --bg-page:        #f1f5f2;
+  --bg-card:        #ffffff;
+  --border:         #d9e5db;
+  --text-primary:   #111827;
   --text-secondary: #4b5563;
-  --text-muted:   #9ca3af;
-  --red-500: #ef4444;
-  --red-100: #fee2e2;
+  --text-muted:     #9ca3af;
+  --red-500:        #ef4444;
+  --red-100:        #fee2e2;
 
   /* Typography */
   --font: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 16px rgba(31,49,38,0.10), 0 1px 4px rgba(31,49,38,0.06);
-  --shadow-lg: 0 20px 48px rgba(31,49,38,0.14), 0 4px 12px rgba(31,49,38,0.08);
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:    0 4px 16px rgba(31,49,38,0.10), 0 1px 4px rgba(31,49,38,0.06);
+  --shadow-lg:    0 20px 48px rgba(31,49,38,0.14), 0 4px 12px rgba(31,49,38,0.08);
   --shadow-green: 0 0 0 3px rgba(63,146,80,0.18);
 
   /* Radii */
@@ -62,6 +62,11 @@
 
   /* Transitions */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cairo handles Arabic & Latin — switch when RTL */
+[dir="rtl"] {
+  --font: 'Cairo', system-ui, sans-serif;
 }
 
 html, body {

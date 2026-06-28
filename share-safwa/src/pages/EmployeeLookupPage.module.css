@@ -11,12 +11,34 @@
   border-bottom: 1px solid var(--border);
   padding: 0.85rem 2rem;
   box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .topbarLogo {
   height: 38px;
   width: auto;
   display: block;
+}
+
+.langBtn {
+  background: transparent;
+  border: 1px solid var(--green-200);
+  color: var(--green-600);
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+  white-space: nowrap;
+  font-family: var(--font);
+}
+
+.langBtn:hover {
+  background: var(--green-50);
+  border-color: var(--green-400);
 }
 
 /* ── Main content ── */

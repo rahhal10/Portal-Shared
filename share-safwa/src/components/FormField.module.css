@@ -84,10 +84,12 @@
   font-size: 0.78rem;
   color: var(--red-500);
   font-weight: 500;
+  text-align: start;
 }
 
 .hint {
   font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 400;
+  text-align: start;
 }

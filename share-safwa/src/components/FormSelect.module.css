@@ -65,6 +65,15 @@
   align-items: center;
 }
 
+/* RTL: flip chevron to the left and reverse select padding */
+:global([dir="rtl"]) .select {
+  padding: 0.72rem 0.95rem 0.72rem 2.5rem;
+}
+:global([dir="rtl"]) .chevron {
+  right: auto;
+  left: 0.85rem;
+}
+
 .errorText {
   font-size: 0.78rem;
   color: var(--red-500);
